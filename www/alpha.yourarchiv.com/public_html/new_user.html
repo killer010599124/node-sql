@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="jquery/jquery-3.6.0.min.js"></script>
+	<!-- bootstrap -->
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  
+    <!-- Boxiocns CDN Link -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <!-- icons -->
+	 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">     
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+<body onload="OnLoad()">
+  <div class="sidebar close">
+    <div class="logo-details">
+      <i>
+      <img src="image/yourarchive_logo.png">
+      </i>
+      <h2>Your
+      <span class="logo_name">Archiv</span>
+      </h2>
+    </div>
+    <ul class="nav-links">
+      <li>
+        <a href="#">
+          <i class='material-icons-sharp' >apps</i>
+          <span class="link_name">All</span>
+        </a>
+      </li>      
+      <li>
+        <a href="#">
+          <i class='material-icons-sharp'>library_music</i>
+          <span class="link_name" id = 'audio' onclick = selectTab(this)>Audio</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class='material-icons-sharp'>pending_actions</i>
+          <span class="link_name" id = 'checktext' onclick = selectTab(this)>Check Text</span>
+        </a>
+      </li>        
+      <li>
+        <a href="#">
+          <i class='material-icons-sharp'>description</i>
+          <span class="link_name" id = 'text' onclick = selectTab(this)>Text</span>
+        </a>
+      </li>    
+      <li>
+        <a href="#">
+          <i class='material-icons-sharp'>video_library</i>
+          <span class="link_name" id = 'video' onclick = selectTab(this)>Video</span>
+        </a>
+      </li>    
+      <li>
+        <a href="#">
+          <i class='material-icons-sharp'>topic</i>
+          <span class="link_name">Topic</span>
+        </a>
+      </li>                
+
+
+      <li>
+    <div class="profile-details">
+      <div class="profile-content">
+        <!--<img src="image/profile.jpg" alt="profileImg">-->
+      </div>
+      <div class="name-job">
+        <div class="profile_name">Prem Shahi</div>
+        <div class="job">Web Desginer</div>
+      </div>
+      <i class='bx bx-log-out' id = "logout" onclick="Logout()"></i>
+    </div>
+  </li>
+</ul>
+  </div>
+  <section class="home-section">
+    <div class="home-content">
+      <div class="search-main">
+        <div class="left">
+          <input type="text" id="search" placeholder="Search All..." name="" onkeyup="handleLiveSearch()">
+        </div>
+        <div class="right">
+          <div class="filter">
+            <a href="#">
+          <!--  <i class='material-icons-sharp' >filter_list</i>
+          -->
+              <div class="fiter-condition">
+                <select name="" id="sort" onchange="Sort()">
+                  <option value="NewestUpload"> Newest Upload</option>
+                  <option value="OldestUpload"> Oldest Upload</option>
+                  <option value="AZtitle"> A - Z Title</option>
+                  <option value="ZAtitle"> Z - A Title</option>
+                  <option value="AZurl"> A - Z Url</option>
+                  <option value="ZAurl"> Z - A Url</option>
+                  <option value="NewestDate"> Newest Create</option>
+                  <option value="OldestDate"> Oldest Create</option>
+                </select>
+              </div>
+            </a>
+          </div>
+          <div class="upload">
+          <a href="#">
+          <i class='material-icons-sharp' >upload_file</i>
+          <span class="link_name">Upload</span>
+          </a>
+        </div>
+        </div>      
+      </div>
+      <div id="selection-tags-filter" class="tag-container" onclick=""></div>
+      <ul id= "articles" class = "hide_maker"></ul>
+      <!-- <div>
+        
+        <div class="search-result">
+          <div class="top">
+            <div class="left">
+              <h2>Title Articles</h2>
+            </div>
+            <div class="right">
+              <p>21 Jun, 2021</p>
+            </div>
+          </div>
+          <div class="middle">
+            <span>Desciprion, Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+             Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span>
+          </div>
+          <div class="bottom">
+            <div class="left">
+              <a href="#">
+              <p>cnn.com</p>
+              </a>
+            </div>
+            <div class="right">
+              <p>15 Apr, 2018</p>
+            </div>
+          </div>
+        </div>
+        <div class="search-result">
+          <h2>Title Articles</h2>
+        </div>  
+      
+      </div> -->
+       
+    </div>
+    <!-- <div class="right-view"> -->
+      <!-- <img class="img-container"  src="/image/hlavnespravy.jpg">
+      <span class="text">Article</span> -->
+      <div id="content">
+        <button id="btn-delete" title="Delete article" class="btn btn-danger bi bi-file-earmark-x-fill"
+          onclick="$('#modal-delete').modal('show')"></button>
+        <p><h3><b id="title"></b></h3></p>
+        <p><label id="date"></label></p>
+        <p><a id="url" href="http://www.example.com" target="_blank"></a></p>
+        <hr>
+        <p>
+          <label>Description:</label>
+          <button id="btn-description" class="btn btn-secondary" onclick="EditDescription()">Edit Description</button>
+          <button id="btn-description-cancel" class="btn btn-secondary" onclick="CancelEditDescription()">Cancel</button>
+          <br><br>
+          <textarea id="description" onblur="" readonly>abc</textarea></p>
+          <hr>
+        <br>
+        <div id="selection-tags" class="tag-container" onclick="">
+        </div>
+        <br>
+        <hr>
+        <!-- <img src="https://www.punjabidharti.com/wp-content/plugins/wp-email/images/loading.gif" alt="loading image" style = "display: none" id="gif"> -->
+        <div class="img-container" id = "img_container">
+       
+          <!-- <img id="capture" onclick="OpenImgPopup()"></div> -->
+          <img id="capture"  onclick="OpenImgPopup()"  src="https://cssauthor.com/wp-content/uploads/2018/06/Bouncy-Preloader.gif"></div>
+      </div>
+      <div id="img-popup-container"><img id="img-popup" title="Click to close" onclick="CloseImgPopup()"></div>
+    
+      <div id="content-audio"></div>
+      <div id="content-video"></div>
+      <!-- modals -->
+      <div id="modal-1" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <br>
+            </div>
+            <div class="modal-body">
+              <p id="modal-text"></p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" onclick="CloseModal()">Ok</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="modal-delete" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <br>
+            </div>
+            <div class="modal-body">
+              <h5 id="modal-text">Are you sure you want to delete this article?</h5>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" onclick="CloseModal()">Cancel</button>
+              <button type="button" class="btn btn-danger" onclick="DeleteArticle()">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!-- </div> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="text/javascript" src="new_user.js"></script>
+<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'></script>
+<script type="text/javascript" src="gif.js"></script>
+<script type='text/javascript'>
+ 
+</script>
+</body>
+</html>

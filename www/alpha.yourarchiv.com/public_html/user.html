@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<!-- jquery -->
+	<script src="jquery/jquery-3.6.0.min.js"></script>
+
+	<!-- bootstrap -->
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- custom -->
+	<link rel="stylesheet" type="text/css" href="/css/user.css">
+
+	<!-- icons -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+
+	<!-- <link rel="stylesheet" type="text/css" href="static/base.css"> -->
+</head>
+<body onload="OnLoad()">
+
+	<!-- sidebar -->
+	<div id="sidebar" class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark">
+		<span id="logout" onclick="Logout()"><span class="bi bi-power bi-space"></span>Logout</span>
+		<br>
+		<!-- <span id="sidebar-title" class="fs-4" onclick="Title_OnClick()">Articles</span> -->
+		<br>
+		<hr>
+		<div id="tabs">
+			<label id="tab-saved" class="tab" onclick="SelectTab(this)">Saved Articles</label>
+			<label id="tab-captured" class="tab selected" onclick="SelectTab(this)">Captured Articles</label>
+			<label id="tab-audio" class="tab" onclick="SelectTab(this)">Recordings</label>
+			<label id="tab-video" class="tab" onclick="SelectTab(this)">Videos</label>
+		</div>
+		<br>
+		<div id="search-bar-content">
+			<!-- search bar -->
+			<p id="search-bar">
+				<input id="search" type="text" onkeyup="handleLiveSearch()">
+				<button id="btn-search" class="btn btn-secondary" onclick="Search()">Search</button>
+			</p>
+			<br>
+			<select id="sort" class="form-select text-white bg-dark" aria-label="Default select example" onchange="Sort()">
+				<option value="default" selected>Default</option>
+				<option value="date-asc">Sort by date - newest</option>
+				<option value="date-desc">Sort by date - oldest</option>
+				<option value="name-asc">Sort by name - asc</option>
+				<option value="name-desc">Sort by name - desc</option>
+				<option value="percent-asc">Sort by percentage - higher</option>
+				<option value="percent-desc">Sort by percentage - lower</option>
+			</select>
+			<br>
+			<div id="selection-tags-filter" class="tag-container" onclick="">
+			</div>
+			<hr id="selection-tags-filter-hr">
+			<ul id="articles" class="nav nav-pills flex-column mb-auto">
+			</ul>
+		</div>
+	</div>
+
+	<div id="content">
+		<button id="btn-delete" title="Delete article" class="btn btn-danger bi bi-file-earmark-x-fill"
+			onclick="$('#modal-delete').modal('show')"></button>
+		<p><h3><b id="title"></b></h3></p>
+		<p><label id="date"></label></p>
+		<p><a id="url" href="http://www.example.com" target="_blank"></a></p>
+		<hr>
+		<p>
+			<label>Description:</label>
+			<button id="btn-description" class="btn btn-secondary" onclick="EditDescription()">Edit Description</button>
+			<button id="btn-description-cancel" class="btn btn-secondary" onclick="CancelEditDescription()">Cancel</button>
+			<br><br>
+			<textarea id="description" onblur="" readonly>abc</textarea></p>
+			<hr>
+		<br>
+		<div id="selection-tags" class="tag-container" onclick="">
+		</div>
+		<br>
+		<hr>
+		<div class="img-container"><img id="capture" onclick="OpenImgPopup()"></div>
+	</div>
+	<div id="img-popup-container"><img id="img-popup" title="Click to close" onclick="CloseImgPopup()"></div>
+
+	<div id="content-audio"></div>
+	<div id="content-video"></div>
+
+
+	<!-- modals -->
+	<div id="modal-1" class="modal" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<br>
+				</div>
+				<div class="modal-body">
+					<p id="modal-text"></p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" onclick="CloseModal()">Ok</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="modal-delete" class="modal" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<br>
+				</div>
+				<div class="modal-body">
+					<h5 id="modal-text">Are you sure you want to delete this article?</h5>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" onclick="CloseModal()">Cancel</button>
+					<button type="button" class="btn btn-danger" onclick="DeleteArticle()">Delete</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script type="text/javascript" src="user.js"></script>
+</body>
+</html>
